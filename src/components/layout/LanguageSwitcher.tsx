@@ -1,9 +1,9 @@
 import { LANGS, useLang } from '../../i18n/LanguageContext';
 
 export default function LanguageSwitcher({ className = '' }: { className?: string }) {
-  const { lang, setLang } = useLang();
+  const { lang, setLang, t } = useLang();
   return (
-    <div className={`flex items-center gap-1 ${className}`} role="group" aria-label="Language">
+    <div className={`flex items-center gap-1 ${className}`} role="group" aria-label={t('languageGroup')}>
       {LANGS.map((code, i) => (
         <span key={code} className="flex items-center gap-1">
           {i > 0 && <span className="text-current opacity-30">|</span>}

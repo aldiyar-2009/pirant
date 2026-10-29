@@ -5,6 +5,7 @@
 @layer base {
   html { scroll-behavior: smooth; }
   body { @apply bg-white font-sans text-ink antialiased; }
+  html[lang='kk'] body { font-family: 'Noto Sans', system-ui, 'Segoe UI', sans-serif; }
   :focus-visible { @apply outline-2 outline-offset-2 outline-brand; }
 }
 @layer components {
@@ -22,3 +23,43 @@
   .adm-input { @apply w-full rounded-lg border border-navy/20 bg-white px-3 py-2.5 text-sm text-ink outline-none placeholder:text-ink/40 focus:border-brand focus:ring-2 focus:ring-brand/15; }
 }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+@keyframes service-copy-enter {
+  from { opacity: 0; transform: translateY(8px); filter: blur(2px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+.service-copy-enter { animation: service-copy-enter 350ms ease-out both; }
+
+/* Подчёркивание пунктов меню: вырастает из центра */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px;
+  background: theme('colors.accent.DEFAULT'); transform: scaleX(0); transition: transform 300ms cubic-bezier(.22,1,.36,1);
+}
+.nav-link:hover::after, .nav-link.active::after, .nav-link[data-active]::after { transform: scaleX(1); }
+
+/* Бегущая лента логотипов партнёров */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee var(--marquee-duration, 40s) linear infinite; }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { width: auto; flex-wrap: wrap; justify-content: center; }
+  .marquee-track > [aria-hidden] { display: none; }
+}
+
+/* Радиоволны на первом экране */
+@keyframes signal-ring {
+  0% { transform: scale(0.15); opacity: 0; }
+  12% { opacity: 0.9; }
+  100% { transform: scale(1); opacity: 0; }
+}
+.signal-ring { transform-box: fill-box; transform-origin: center; animation: signal-ring 5.4s cubic-bezier(.2,.6,.35,1) infinite; }
+@keyframes radar-sweep { to { transform: rotate(360deg); } }
+.radar-sweep { transform-box: view-box; transform-origin: 300px 300px; animation: radar-sweep 9s linear infinite; }
+@keyframes blip { 0%, 100% { opacity: 0.25; } 8% { opacity: 1; } 30% { opacity: 0.25; } }
+.blip { animation: blip 9s linear infinite; }
+
+/* Кнопка заявки: мягкий «пинг», чтобы её заметили, но не раздражала */
+@keyframes lead-ping { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
+.lead-ping { animation: lead-ping 2.6s cubic-bezier(0,0,.2,1) 3; }

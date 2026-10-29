@@ -7,6 +7,7 @@ export default function NewsSection() {
   const { t } = useLang();
   const { news } = useSite();
   const latest = [...news].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+  if (!latest.length) return null;
   return (
     <section className="py-16 lg:py-20">
       <div className="container-site">

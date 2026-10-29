@@ -42,16 +42,15 @@ export const servicesContent: ServiceContent[] = [
         { icon: 'radio', title: 'Радиостанции', text: 'КВ, УКВ, TETRA, DMR.' }, { icon: 'server', title: 'Сетевое оборудование и серверы' },
         { icon: 'eye', title: 'Видеонаблюдение и мониторинг' }, { icon: 'zap', title: 'Системы питания и климат-контроля' }, { icon: 'monitor', title: 'ПО и системы управления' } ] },
       { title: 'Внутреннее оснащение и эргономика', cols: 3, items: [
-        { icon: 'users', title: 'Зона переговоров' }, { icon: 'server', title: 'Стойка 19″' }, { icon: 'laptop', title: 'АРМ операторов' },
-        { icon: 'network', title: 'Коммутация' }, { icon: 'bed', title: 'Спальные места' }, { icon: 'door', title: 'Внутренний коридор' } ] },
+        { title: 'Зона переговоров', image: img('kshm-int1') }, { title: 'Стойка 19″', image: img('kshm-int2') }, { title: 'АРМ операторов', image: img('kshm-int3') },
+        { title: 'Коммутация', image: img('kshm-int4') }, { title: 'Спальные места', image: img('kshm-int5') }, { title: 'Внутренний коридор', image: img('kshm-int6') } ] },
       { title: 'Конструкция кузова-фургона', intro: 'Прочная, теплая и долговечная конструкция обеспечивает надежную защиту оборудования и персонала в любых условиях эксплуатации.', cols: 2, ratio: 'aspect-[4/3]', items: [
         { title: '5-слойные сэндвич-панели (монолит)', text: 'Внешняя обшивка из оцинкованной стали, утеплитель полистирольной группы.', image: img('body-panels') },
         { title: 'Каркас и надрамник', text: 'Интегрированный стальной надрамник (12 точек крепления), двойной стеклопакет с защитными решётками.', image: img('body-frame') } ] },
     ],
     gallery: [
-      { src: img('kshm-front'), caption: 'Вид спереди' }, { src: img('kshm-rear'), caption: 'Вид сзади' }, { src: img('kshm-side'), caption: 'Вид сбоку' },
-      { src: img('kshm-int1'), caption: 'Зона переговоров' }, { src: img('kshm-int2'), caption: '19" стойка' }, { src: img('kshm-int3'), caption: 'АРМ операторов' },
-      { src: img('kshm-int4'), caption: 'Коммутация' }, { src: img('kshm-int5'), caption: 'Спальные места' }, { src: img('kshm-int6'), caption: 'Внутренний коридор' },
+      { src: img('kshm-main'), caption: 'Командно-штабные машины' }, { src: img('kshm-front'), caption: 'Вид спереди' }, { src: img('kshm-rear'), caption: 'Вид сзади' },
+      { src: img('kshm-side'), caption: 'Вид сбоку' }, { src: img('body-panels'), caption: '5-слойные сэндвич-панели (монолит)' }, { src: img('body-frame'), caption: 'Каркас и надрамник' },
       { src: sch('kshm-deployed'), caption: 'Схема: развёрнутое положение' }, { src: sch('mcc-van'), caption: 'Схема: мобильный комплекс связи' }, { src: sch('satcom-flyaway'), caption: 'Схема: спутниковый терминал' },
     ],
     advantages: ['Прочность: высокая несущая способность и устойчивость к нагрузкам', 'Теплоизоляция: эффективное сохранение температуры внутри кузова', 'Шумоизоляция: снижение уровня шума и вибраций', 'Защита: устойчивость к коррозии, влаге, перепадам температур', 'Долговечность: длительный срок службы при минимальных затратах на обслуживание'],
@@ -75,7 +74,10 @@ export const servicesContent: ServiceContent[] = [
         { icon: 'radio', title: 'Портативные радиостанции' }, { icon: 'radio', title: 'Мобильные радиостанции' }, { icon: 'server', title: 'Базовые станции' },
         { icon: 'refresh', title: 'Ретрансляторы' }, { icon: 'headset', title: 'Диспетчерские консоли' } ] },
     ],
-    gallery: [{ src: sch('radio-base'), caption: 'Базовая станция' }, { src: sch('radio-tower'), caption: 'Ретрансляционный узел' }, { src: sch('radio-handheld'), caption: 'Носимые радиостанции' }],
+    gallery: [
+      { src: img('radio-dispatch'), caption: 'Диспетчерский пункт' }, { src: img('radio-tower-photo'), caption: 'Ретрансляционная вышка' }, { src: img('radio-repeaters'), caption: 'Базовые станции и ретрансляторы' },
+      { src: img('radio-vehicle'), caption: 'Радиостанция в автомобиле' }, { src: img('svc-radio'), caption: 'Портативные радиостанции' }, { src: img('app-emergency'), caption: 'Экстренные службы' },
+      { src: sch('radio-base'), caption: 'Базовая станция' }, { src: sch('radio-tower'), caption: 'Ретрансляционный узел' }, { src: sch('radio-handheld'), caption: 'Носимые радиостанции' }],
     advantages: ['Цифровая передача голоса и данных высокого качества', 'Надежное шифрование и защита информации', 'Покрытие на больших расстояниях (КВ/УКВ)', 'IP-интеграция и мультисетевое взаимодействие', 'Централизованное управление и диспетчеризация', 'Высокая помехоустойчивость и надежность', 'Масштабируемость и гибкость систем', 'Отказоустойчивость и резервирование', 'Круглосуточная эксплуатация 24/7'],
     vendors: ['hytera', 'motorola-solutions', 'icom', 'hycomms', 'sepura'],
   },
@@ -94,7 +96,10 @@ export const servicesContent: ServiceContent[] = [
         { icon: 'monitor', title: 'Видеостены и дисплеи' }, { icon: 'users', title: 'Рабочие места операторов' }, { icon: 'server', title: 'Серверная инфраструктура' },
         { icon: 'network', title: 'Сетевое оборудование' }, { icon: 'radio', title: 'Коммуникационное оборудование' }, { icon: 'eye', title: 'Системы безопасности видеонаблюдения' } ] },
     ],
-    gallery: [{ src: img('sit-hero'), caption: 'Зал ситуационного центра' }, { src: img('svc-situation'), caption: 'Рабочие места операторов' }, { src: sch('sc-videowall'), caption: 'Схема: видеостена' }, { src: sch('sc-console'), caption: 'Схема: рабочее место оператора' }],
+    gallery: [
+      { src: img('sit-hero'), caption: 'Операторский зал' }, { src: img('svc-situation'), caption: 'Центр оперативного управления' }, { src: img('sc-workstation'), caption: 'Рабочее место оператора' },
+      { src: img('sc-meeting'), caption: 'Переговорная штаба' }, { src: img('sc-videowall-install'), caption: 'Монтаж видеостены' }, { src: img('dc-aisle'), caption: 'Серверная инфраструктура' },
+      { src: sch('sc-videowall'), caption: 'Схема: видеостена' }, { src: sch('sc-console'), caption: 'Схема: рабочее место оператора' }],
     advantages: ['Оперативность реагирования', 'Повышение эффективности управления', 'Масштабируемость и гибкость решений', 'Высокая надежность и отказоустойчивость', 'Единое информационное пространство', 'Интеграция с любыми системами', 'Поддержка 24/7 и техническое сопровождение', 'Защита данных и информационная безопасность'],
     vendors: ['huawei', 'samsung', 'legrand', 'barco', 'crestron', 'avaya', 'milestone', 'cisco', 'dell', 'eizo'],
   },
@@ -108,7 +113,9 @@ export const servicesContent: ServiceContent[] = [
         { title: 'Стационарный ЦОД (капитальный)', text: 'Капитальные здания и сооружения для размещения критически важной ИТ-инфраструктуры любого масштаба. Максимальная надежность, безопасность и эффективность.', image: img('dc-stationary') },
         { title: 'Микро ЦОД', text: 'Компактные решения для размещения ИТ-оборудования в офисах, на производствах и в удаленных филиалах. Оптимально для локальной обработки и хранения данных.', image: img('dc-micro') } ] },
     ],
-    gallery: [{ src: img('dc-corridor'), caption: 'Машинный зал' }, { src: sch('dc-racks'), caption: 'Схема: серверные стойки' }, { src: sch('dc-power'), caption: 'Схема: инженерные системы' }],
+    gallery: [
+      { src: img('dc-corridor'), caption: 'Машинный зал' }, { src: img('dc-aisle'), caption: 'Изоляция холодного коридора' }, { src: img('dc-power-room'), caption: 'Система бесперебойного питания' },
+      { src: img('dc-cooling'), caption: 'Прецизионное охлаждение' }, { src: img('dc-container'), caption: 'Контейнерный ЦОД' }, { src: img('dc-stationary'), caption: 'Стационарный ЦОД' }, { src: sch('dc-racks'), caption: 'Схема: серверные стойки' }, { src: sch('dc-power'), caption: 'Схема: инженерные системы' }],
     advantages: ['Высокая надежность', 'Высокая производительность', 'Масштабируемость и гибкость', 'Энергоэффективность и оптимизация затрат', 'Безопасность и соответствие стандартам', 'Круглосуточная доступность сервисов', 'Профессиональная поддержка 24/7'],
     vendors: ['huawei', 'schneider', 'vertiv', 'eaton', 'dell', 'hpe', 'cisco', 'nutanix', 'lenovo', 'netapp', 'ibm', 'fujitsu'],
   },
@@ -122,7 +129,10 @@ export const servicesContent: ServiceContent[] = [
         { icon: 'cpu', title: 'Endpoint Security', list: ['Защита рабочих станций и серверов', 'EDR / XDR и поведенческий анализ', 'Контроль приложений и устройств', 'Управление уязвимостями'] },
         { icon: 'key', title: 'Identity & Data Protection', list: ['Управление доступом (IAM, PAM)', 'Многофакторная аутентификация (MFA)', 'DLP и защита данных', 'Резервное копирование и восстановление'] } ] },
     ],
-    gallery: [{ src: sch('sec-soc'), caption: 'Схема: защита инфраструктуры' }, { src: sch('sec-ngfw'), caption: 'Схема: межсетевой экран' }],
+    gallery: [
+      { src: img('svc-security'), caption: 'Центр мониторинга (SOC)' }, { src: img('sec-analyst'), caption: 'Расследование инцидентов' }, { src: img('sec-ngfw-rack'), caption: 'Межсетевые экраны и сетевое ядро' },
+      { src: img('sec-mfa'), caption: 'Многофакторная аутентификация (MFA)' },
+      { src: sch('sec-soc'), caption: 'Схема: защита инфраструктуры' }, { src: sch('sec-ngfw'), caption: 'Схема: межсетевой экран' }],
     advantages: ['Комплексная защита бизнеса и данных', 'Круглосуточный мониторинг и реагирование 24/7', 'Снижение рисков и финансовых потерь', 'Соответствие требованиям международных стандартов', 'Экспертиза и опыт команды сертифицированных специалистов'],
     vendors: ['paloalto', 'fortinet', 'check-point', 'cisco-secure', 'crowdstrike', 'microsoft-security', 'splunk', 'ibm-security', 'trend-micro', 'sentinelone', 'cyberark', 'veeam'],
   },
@@ -139,9 +149,6 @@ export const servicesContent: ServiceContent[] = [
       { title: 'Два способа нейтрализации', intro: 'Единая платформа управления интегрирует данные от всех подсистем, оценивает обстановку и выбирает оптимальный сценарий реагирования.', cols: 2, items: [
         { icon: 'lock', title: 'D-Fend Solutions: приоритетный метод', text: 'RF Cyber Takeover — безопасный перехват управления БПЛА.', list: ['Перехват управления по радиоканалу без глушения', 'Контролируемая посадка или возврат к точке взлета', 'Без помех для окружающей инфраструктуры', 'Работает в сложных условиях и без прямой видимости', 'Эффективен против большинства коммерческих дронов'] },
         { icon: 'zap', title: 'TERJIN: резервный сценарий', text: 'Подавление каналов управления и связи. Применяется, если безопасный перехват невозможен или угроза массовая / критическая.', list: ['Широкополосное подавление управляющих и навигационных каналов', 'Эффективно при рое дронов или устойчивых к перехвату целях', 'Мгновенное воздействие на большой сектор', 'Не требует участия оператора (в автоматическом режиме)'] } ] },
-      { title: 'Защита объектов любой сложности', cols: 3, ratio: 'aspect-[16/10]', items: [
-        { title: 'Аэропорты', image: img('obj-airport') }, { title: 'Нефтегазовые объекты', image: img('obj-oil') }, { title: 'Энергетическая инфраструктура', image: img('obj-power') },
-        { title: 'Промышленные предприятия', image: img('obj-refinery') }, { title: 'Стадионы и массовые мероприятия', image: img('obj-stadium') }, { title: 'Государственные учреждения', image: img('obj-gov') } ] },
     ],
     scheme: { title: 'Как работает система', steps: [
       { title: 'Мониторинг периметра', text: 'Радар и RF-сенсоры непрерывно сканируют воздушное пространство и обнаруживают БПЛА.' },
@@ -149,7 +156,10 @@ export const servicesContent: ServiceContent[] = [
       { title: 'Оповещение оператора', text: 'Информация мгновенно поступает на АРМ оператора. Отображаются карта, маршрут, координаты и статус угрозы.' },
       { title: 'Выбор сценария реагирования', text: 'Оператор выбирает сценарий или система действует автоматически в зависимости от уровня угрозы.' },
       { title: 'Нейтрализация угрозы', text: 'Система выполняет нейтрализацию одним из доступных способов в зависимости от ситуации.' } ] },
-    gallery: [{ src: img('cuav-diagram'), caption: 'Схема системы' }, { src: img('cuav-ui'), caption: 'Единая платформа управления' }, { src: img('cuav-operator'), caption: 'Рабочее место оператора' }, { src: sch('uav-complex'), caption: 'Схема: комплекс обнаружения' }, { src: sch('uav-radar'), caption: 'Схема: радиолокационный модуль' }, { src: sch('uav-handheld'), caption: 'Схема: носимое средство' }],
+    gallery: [
+      { src: img('svc-cuav'), caption: 'Защита промышленного объекта' }, { src: img('cuav-sensor'), caption: 'Оптико-электронный модуль и радар' }, { src: img('cuav-vehicle'), caption: 'Мобильный комплекс на автомобиле' },
+      { src: img('cuav-stadium'), caption: 'Защита массовых мероприятий' },
+      { src: img('cuav-diagram'), caption: 'Схема системы' }, { src: img('cuav-ui'), caption: 'Единая платформа управления' }, { src: img('cuav-operator'), caption: 'Рабочее место оператора' }, { src: sch('uav-complex'), caption: 'Схема: комплекс обнаружения' }, { src: sch('uav-radar'), caption: 'Схема: радиолокационный модуль' }, { src: sch('uav-handheld'), caption: 'Схема: носимое средство' }],
     advantages: ['Круглосуточный мониторинг', 'Высокая точность обнаружения', 'Идентификация и сопровождение', 'Перехват и нейтрализация', 'Интеграция всех компонентов', 'Защита объектов любой сложности'],
     vendors: ['terjin', 'd-fend'],
   },

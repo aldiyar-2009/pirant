@@ -1,43 +1,53 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { useLang } from '../../i18n/LanguageContext';
-import { useDirections } from '../../store/hooks';
-import { store } from '../../store/site';
+import { useContacts, useDirections, waUrl } from '../../store/hooks';
+import type { Lang } from '../../types';
 import { useLeadModal } from './LeadModalContext';
 
-const field = 'mt-1 w-full rounded-lg border border-navy/20 bg-white px-4 py-3 text-sm font-normal outline-none focus:border-brand';
+/** текст согласия: [до ссылки, ссылка на политику, после ссылки] — порядок слов в языках разный */
+const CONSENT: Record<Lang, [string, string, string]> = {
+  ru: ['Даю согласие на сбор и обработку моих персональных данных на условиях ', 'Политики конфиденциальности', ''],
+  kk: ['', 'Құпиялылық саясатының', ' шарттарында дербес деректерімді жинауға және өңдеуге келісім беремін'],
+  en: ['I consent to the collection and processing of my personal data under the ', 'Privacy Policy', ''],
+};
+
+const field ='mt-1 w-full rounded-lg border border-navy/20 bg-white px-4 py-3 text-sm font-normal outline-none focus:border-brand';
 
 export default function LeadModal() {
   const { open, closeLead } = useLeadModal();
-  const { l, t } = useLang();
+  const { lang, l, t } = useLang();
   const services = useDirections();
+  const { whatsapp, email } = useContacts();
   const match = useMatch('/services/:id');
   const [sent, setSent] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!open) { setSent(false); setError(''); return; }
+    if (!open) { setSent(false); return; }
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && closeLead();
     window.addEventListener('keydown', onKey);
     return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey); };
   }, [open, closeLead]);
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  // Сервера нет: заявка уходит готовым сообщением в WhatsApp компании (или письмом, если WhatsApp не указан)
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-    setBusy(true); setError('');
-    try {
-      // заявка сохраняется только на сервере компании; сотрудники получают уведомление без данных заявки
-      await store.submitInquiry({
-        name: d.name, phone: d.phone, company: d.company ?? '', message: d.message ?? '',
-        directionId: d.service_id || null, page: window.location.pathname, website: d.website ?? '',
-      });
-      setSent(true);
-    } catch (ex) { setError((ex as Error).message); } finally { setBusy(false); }
+    const direction = services.find((s) => s.id === d.service_id);
+    const text = [
+      `${t('leadTitle')} — ${window.location.origin}${window.location.pathname}`,
+      `${t('name')}: ${d.name}`,
+      `${t('phone')}: ${d.phone}`,
+      d.company && `${t('company')}: ${d.company}`,
+      direction && `${t('direction')}: ${l(direction.title)}`,
+      d.message && `${t('message')}: ${d.message}`,
+    ].filter(Boolean).join('\n');
+    const url = whatsapp ? waUrl(whatsapp, text) : `mailto:${email}?subject=${encodeURIComponent(t('leadTitle'))}&body=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'noopener');
+    setSent(true);
   };
 
   return (
@@ -87,10 +97,15 @@ export default function LeadModal() {
                   <label className="text-sm font-semibold sm:col-span-2">{t('message')}
                     <textarea name="message" rows={3} className={field} />
                   </label>
-                  {/* ловушка для ботов: людям не видна */}
-                  <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
-                  {error && <div role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800 sm:col-span-2">{error}</div>}
-                  <button type="submit" disabled={busy} className="btn-accent disabled:opacity-60 sm:col-span-2">{busy ? '…' : t('send')}</button>
+                  <label className="flex items-start gap-2 text-xs text-ink/70 sm:col-span-2">
+                    <input name="consent" type="checkbox" required className="mt-0.5 h-4 w-4 shrink-0 accent-brand" />
+                    <span>
+                      {CONSENT[lang][0]}
+                      <Link to="/privacy" target="_blank" className="font-semibold text-brand underline">{CONSENT[lang][1]}</Link>
+                      {CONSENT[lang][2]}
+                    </span>
+                  </label>
+                  <button type="submit" className="btn-accent sm:col-span-2">{t('send')}</button>
                 </form>
               )}
             </motion.div>

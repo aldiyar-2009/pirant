@@ -12,7 +12,7 @@ export function tgUrl(handle: string, text?: string): string {
 }
 export const waUrl = (num: string, text?: string) => `https://wa.me/${digits(num)}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
 
-/** Контакты компании из настроек сайта (панель управления → Контакты) */
+/** Контакты компании (src/data/mockData.ts) */
 export function useContacts() {
   const { settings: s } = useSite();
   return useMemo(() => {

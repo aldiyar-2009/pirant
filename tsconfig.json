@@ -4,6 +4,5 @@
     "moduleResolution": "bundler", "jsx": "react-jsx", "strict": true, "skipLibCheck": true,
     "noEmit": true, "isolatedModules": true, "resolveJsonModule": true
   },
-  "include": ["src", "vite.config.ts"],
-  "exclude": ["src/tests"]
+  "include": ["src", "vite.config.ts"]
 }

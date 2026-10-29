@@ -1,4 +1,4 @@
-/** ru обязателен, kk/en — по мере готовности (иначе показываем ru) */
+/** ru обязателен; встроенные тексты без перевода используют словарь i18n/content.ts */
 export type Lang = 'ru' | 'kk' | 'en';
 export type Localized = { ru: string; kk?: string; en?: string };
 
@@ -19,7 +19,7 @@ export interface Step { title: string; text: string }
 export interface Spec { label: string; value: string }
 export interface GalleryImage { src: string; caption: string }
 
-/** Направление = карточка на главной + страница /services/:id. Всё редактируется в панели. */
+/** Направление = карточка на главной + страница /services/:id. Содержимое — в src/data. */
 export interface Direction {
   id: string; // совпадает с :id в /services/:id
   order: number;
@@ -37,31 +37,19 @@ export interface Direction {
   gallery: GalleryImage[];
   advantages: string[];
   vendors: string[]; // id партнёров
-  createdAt: string;
-  updatedAt: string;
 }
 
 /* ---------------- Партнёры ---------------- */
-export type PartnerCategory = 'radio' | 'security' | 'servers' | 'video' | 'cuav';
 export interface Partner {
   id: string;
   name: string;
-  category: PartnerCategory;
   logo: string; // пусто — показываем название
-  description: Localized;
+  description?: Localized;
   featured: boolean; // показывать на главной
 }
 
 /* ---------------- Настройки сайта ---------------- */
-/** Тексты интерфейса, которые можно переопределить в панели (ключи из i18n/ui.ts) */
-export const EDITABLE_TEXTS = ['heroTitle', 'heroSubtitle', 'trust', 'aboutText', 'missionText', 'slogan', 'servicesLead', 'partnersTitle', 'orderText'] as const;
-export type EditableTextKey = (typeof EDITABLE_TEXTS)[number];
-
 export interface Settings {
-  texts: Partial<Record<EditableTextKey, Localized>>;
-  stats: { id: string; value: string; label: Localized }[];
-  advantages: { id: string; icon: string; title: Localized; text: Localized }[];
-  cycle: { id: string; icon: string; title: string; text: string }[];
   phones: { id: string; label: string; number: string }[];
   whatsapp: string; // только цифры: 77788004477
   telegram: string; // логин или ссылка; пусто — кнопка скрыта
@@ -71,31 +59,34 @@ export interface Settings {
   offices: { id: string; city: Localized; address: string; mapQuery: string; phone: string }[];
 }
 
-/* ---------------- Обращения ---------------- */
-export type InquiryStatus = 'new' | 'in_progress' | 'answered';
-export interface Inquiry {
+export interface MachineCategory {
   id: string;
-  createdAt: string;
-  name: string;
-  phone: string;
-  company: string;
-  message: string;
-  directionId: string | null;
-  directionTitle: string;
-  channel: 'site' | 'whatsapp' | 'telegram';
-  page: string;
-  status: InquiryStatus;
+  title: Localized;
+  description: string;
+  image: string;
+  order: number;
+  published: boolean;
 }
 
-/* ---------------- Пользователи панели ---------------- */
-export type Role = 'superadmin' | 'manager';
-export interface PublicUser { id: string; login: string; name: string; role: Role; totp?: boolean }
+export interface MachineSpec { label: string; value: string }
+
+export interface Machine {
+  id: string;
+  categoryId: string;
+  title: string;
+  description: string;
+  image: string;
+  gallery: GalleryImage[];
+  specs: MachineSpec[];
+  order: number;
+  published: boolean;
+}
 
 export interface SiteData {
-  schema: number;
   settings: Settings;
   directions: Direction[];
+  machineCategories: MachineCategory[];
+  machines: Machine[];
   news: NewsItem[];
   partners: Partner[];
-  inquiries: Inquiry[];
 }

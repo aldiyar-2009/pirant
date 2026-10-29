@@ -12,9 +12,10 @@ export default function FloatingLeadButton() {
       onClick={openLead}
       aria-label={t('leadTitle')}
       title={t('leadTitle')}
-      className="fixed bottom-5 right-5 z-30 grid h-14 w-14 place-items-center rounded-full bg-accent text-white shadow-lg shadow-navy/30 transition-transform hover:scale-105 hover:bg-accent-dark sm:bottom-6 sm:right-6"
+      className="group fixed bottom-5 right-5 z-30 grid h-14 w-14 place-items-center rounded-full bg-accent text-white shadow-lg shadow-navy/30 transition-transform hover:scale-105 hover:bg-accent-dark active:scale-95 sm:bottom-6 sm:right-6"
     >
-      <MessageCircle size={26} />
+      <span aria-hidden className="lead-ping absolute inset-0 rounded-full bg-accent" />
+      <MessageCircle size={26} className="relative transition-transform duration-300 group-hover:-rotate-12" />
     </button>
   );
 }

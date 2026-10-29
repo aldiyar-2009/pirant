@@ -59,6 +59,9 @@ export default function MobileDrawer({ open, onClose }: Props) {
                   {l(s.title)}
                 </Link>
               ))}
+              <Link to="/services/special-machines" onClick={onClose} className="py-2 pl-3 text-sm font-semibold text-brand">
+                {t('specialMachines')}
+              </Link>
             </nav>
 
             <button onClick={() => { onClose(); openLead(); }} className="btn-accent mt-6">{t('requestQuote')}</button>

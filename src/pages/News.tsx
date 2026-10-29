@@ -11,6 +11,7 @@ export default function News() {
       <PageHead title={t('newsTitle')} sub={t('newsSub')} />
       <div className="container-site grid gap-6 py-12 sm:grid-cols-2 lg:grid-cols-4">
         {[...news].sort((a, b) => b.date.localeCompare(a.date)).map((n) => <NewsCard key={n.id} item={n} />)}
+        {!news.length && <p className="text-sm text-ink/60">{t('noNews')}</p>}
       </div>
     </>
   );

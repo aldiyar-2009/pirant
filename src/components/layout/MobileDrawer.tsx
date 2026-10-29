@@ -31,7 +31,7 @@ export default function MobileDrawer({ open, onClose }: Props) {
         <>
           <motion.div
             className="fixed inset-0 z-40 bg-navy-900/60 lg:hidden"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, pointerEvents: 'none' }}
             onClick={onClose}
           />
           <motion.aside

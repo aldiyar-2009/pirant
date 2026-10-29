@@ -72,7 +72,8 @@ export default function SearchPalette({ open, onClose }: Props) {
       {open && (
         <motion.div
           className="fixed inset-0 z-[80] flex items-start justify-center bg-navy-900/55 px-3 pt-[9vh] backdrop-blur-sm sm:pt-[14vh]"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}
+          // при закрытии слой сразу пропускает нажатия к странице, даже если анимация не доиграет
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, pointerEvents: 'none' }} transition={{ duration: 0.18 }}
           onMouseDown={(e) => e.target === e.currentTarget && onClose()}
         >
           <motion.div
@@ -108,11 +109,8 @@ export default function SearchPalette({ open, onClose }: Props) {
                     <li key={r.id} id={`sr-${r.id}`} role="option" aria-selected={i === active} data-index={i}>
                       <button
                         onClick={() => go(r.to)} onMouseMove={() => i !== active && setActive(i)}
-                        className="relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left"
+                        className={`relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${i === active ? 'bg-brand-soft' : ''}`}
                       >
-                        {i === active && (
-                          <motion.span layoutId="search-active" className="absolute inset-0 -z-0 rounded-xl bg-brand-soft" transition={{ type: 'spring', stiffness: 600, damping: 40 }} />
-                        )}
                         <span className={`relative grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-colors ${i === active ? 'bg-brand text-white' : 'bg-navy/[0.06] text-navy'}`}>
                           <Icon name={r.icon ?? 'file'} size={17} />
                         </span>
